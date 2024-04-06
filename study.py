@@ -1,14 +1,14 @@
-from openai import OpenAI
+import openai
 import streamlit as st
 
-client = OpenAI(st.secrets['openai_key'])
+openai.api_key = st.secrets['openai_key']
 
 def generate_business_simulation(idea):
     prompt = f"Simulate a business based on the following idea: {idea}\n\n"
     prompt += "Provide a detailed plan for executing the idea, simulate the team carrying out the plan, and generate a realistic response to the business's performance.\n\n"
 
-    response = client.chat.completions.create(
-        model="gpt-4-turbo-preview",
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
         messages=[
             {
                 "role": "user",
