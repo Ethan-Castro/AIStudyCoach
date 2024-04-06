@@ -9,21 +9,39 @@ api_key = st.secrets["openai_key"]
 client = OpenAI(api_key=api_key)
 
 def generate_business_simulation(idea):
-    response = client.chat.completions.create(
-        model="gpt-4-turbo-preview",
-        messages=[
-            # Your system, user, and assistant messages here
-        ],
-        temperature=1,
-        max_tokens=1451,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
+    # Construct the messages list with at least one system message and the user's idea
+    messages = [
+        {
+            "role": "system",
+            "content": "Your system message here..."
+        },
+        {
+            "role": "user",
+            "content": idea.strip()  # Ensure the idea is a non-empty string
+        }
+    ]
 
-    # Process and return the simulation output from the response
-    simulation_output = response.choices[0].message['content'].strip()
-    return simulation_output
+    # Ensure there's a valid user message before making the API call
+    if not idea.strip():
+        return "Error: The idea provided is empty. Please provide a valid business idea."
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4-turbo-preview",
+            messages=messages,
+            temperature=1,
+            max_tokens=1451,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        simulation_output = response.choices[0].message['content'].strip()
+        return simulation_output
+    except openai.Error as e:
+        # Log the error or return a user-friendly message
+        print(f"OpenAI API error: {e}")
+        return "An error occurred while processing your request. Please try again."
+
 
 # Your main function for the Streamlit app, etc.
 
