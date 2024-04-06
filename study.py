@@ -9,7 +9,10 @@ def generate_business_simulation(idea):
 
     completion = openai.ChatCompletion.create(
         model="gpt-4",
-        messages=[{"role": "system", "content": prompt}],
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
         temperature=0.7,
         max_tokens=1000,
         top_p=1,
@@ -17,7 +20,7 @@ def generate_business_simulation(idea):
         presence_penalty=0
     )
 
-    simulation_output = completion.choices[0].message['content'].strip()
+    simulation_output = completion.choices[0].message.content.strip()
     return simulation_output
 
 def main():
