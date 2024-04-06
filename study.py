@@ -1,20 +1,19 @@
-import openai
-import streamlit as st
 from openai import OpenAI
-client = OpenAI()
+import streamlit as st
 
-
-openai.api_key = st.secrets['openai_key']
+client = OpenAI(st.secrets['openai_key'])
 
 def generate_business_simulation(idea):
     prompt = f"Simulate a business based on the following idea: {idea}\n\n"
     prompt += "Provide a detailed plan for executing the idea, simulate the team carrying out the plan, and generate a realistic response to the business's performance.\n\n"
 
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4-turbo-preview",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
+            {
+                "role": "user",
+                "content": prompt
+            }
         ],
         temperature=0.7,
         max_tokens=1000,
@@ -23,7 +22,7 @@ def generate_business_simulation(idea):
         presence_penalty=0
     )
 
-    simulation_output = completion.choices[0].message.content.strip()
+    simulation_output = response.choices[0].message.content.strip()
     return simulation_output
 
 def main():
