@@ -1,7 +1,7 @@
 import openai
 import streamlit as st
 from openai import OpenAI
-client = OpenAI(st.secrets['openai_key'])
+client = OpenAI()
 
 def generate_business_simulation(idea):
     response = client.chat.completions.create(
