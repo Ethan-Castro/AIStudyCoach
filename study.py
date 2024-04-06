@@ -37,10 +37,10 @@ def generate_business_simulation(idea):
         )
         simulation_output = response.choices[0].message['content'].strip()
         return simulation_output
-    except openai.Error as e:
-        # Log the error or return a user-friendly message
-        print(f"OpenAI API error: {e}")
-        return "An error occurred while processing your request. Please try again."
+    except Exception as e:  # Adjust based on specific exceptions if documented
+    print(f"An error occurred: {e}")
+    return "An error occurred while processing your request. Please try again."
+
 
 
 # Your main function for the Streamlit app, etc.
