@@ -1,3 +1,5 @@
+pip install openai
+
 import openai
 import streamlit as st
 
@@ -10,10 +12,8 @@ def generate_business_simulation(idea):
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
+            {"role": "system", "content": "You are a business simulation assistant."},
+            {"role": "user", "content": prompt}
         ],
         temperature=0.7,
         max_tokens=1000,
