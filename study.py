@@ -25,7 +25,7 @@ def generate_business_simulation(idea):
    if not idea.strip():
         return "Error: The idea provided is empty. Please provide a valid business idea."
 
-    try:
+   try:
         response = client.chat.completions.create(
             model="gpt-4-turbo-preview",
             messages=messages,
