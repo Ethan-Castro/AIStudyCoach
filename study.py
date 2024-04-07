@@ -38,9 +38,9 @@ def generate_business_simulation(idea):
         # Correct way to access the response content
       simulation_output = response.choices[0].message.content.strip()
       return simulation_output
-      except Exception as e:
-       print(f"An error occurred: {e}")
-       return "An error occurred while processing your request. Please try again."
+   except Exception as e:
+      print(f"An error occurred: {e}")
+      return "An error occurred while processing your request. Please try again."
 
 def main():
     st.set_page_config(page_title="Business Idea Simulator", page_icon=":bulb:")
