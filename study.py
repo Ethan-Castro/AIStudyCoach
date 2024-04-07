@@ -26,14 +26,14 @@ def generate_business_simulation(idea):
         return "Error: The idea provided is empty. Please provide a valid business idea."
 
    try:
-            response = client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=messages,
-            temperature=1,
-            max_tokens=1451,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
+      response = client.chat.completions.create(
+      model="gpt-4-turbo-preview",
+      messages=messages,
+      temperature=1,
+      max_tokens=1451,
+      top_p=1,
+      frequency_penalty=0,
+      presence_penalty=0
         )
         # Correct way to access the response content
         simulation_output = response.choices[0].message.content.strip()
